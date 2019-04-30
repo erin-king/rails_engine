@@ -12,6 +12,8 @@
 * Configuration
 
 * Database creation
+rake import_all            #imports all files in db/data
+rake csv_import:customers  #imports only the customers file; 'customers' can be changed for any file in name in db/data
 
 * Database initialization
 
