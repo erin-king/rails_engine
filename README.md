@@ -24,3 +24,6 @@ rake csv_import:customers  #imports only the customers file; 'customers' can be 
 * Deployment instructions
 
 * ...
+
+rails g migration AddIndexToCustomers
+add_index :customers, :id, unique: true
