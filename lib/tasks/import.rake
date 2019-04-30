@@ -43,22 +43,3 @@ end
 
 desc "Import all csv files"
 task import_all: 'csv_import:all'
-
-
-#
-#   namespace :cleanup do
-#   desc "Aggregate click stats"
-#   task :clicks => :environment do
-#     Click.cleanup!
-#   end
-#
-#   desc "Clean old logs"
-#   task :logs => :environment do
-#     Log.cleanup!
-#   end
-#
-#   task :all => [:clicks, :logs]
-# end
-#
-# desc "Cleanup everything"
-# task :cleanup => 'cleanup:all'
