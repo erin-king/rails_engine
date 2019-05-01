@@ -11,3 +11,5 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
 end
+
+# GET /api/v1/merchants/most_revenue?quantity=x returns the top x merchants ranked by total revenue
