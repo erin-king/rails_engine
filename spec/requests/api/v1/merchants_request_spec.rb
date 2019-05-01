@@ -1,11 +1,20 @@
 require 'rails_helper'
 
 describe "Merchants API" do
-  it "sends a list of merchants" do
-    create_list(:merchant, 3)
+  it "returns a collection of items associated with that merchant" do
 
-    get '/api/v1/merchants'
+    m1 = create(:merchant)
+    i1 = create(:item, merchant_id: m1.id)
+    i2 = create(:item, merchant_id: m1.id)
+    i3 = create(:item, merchant_id: m1.id)
+
+    get "/api/v1/merchants/#{m1.id}/items"
 
     expect(response).to be_successful
+
+    merchant = JSON.parse(response.body)
+
+    expect(m1.items.count).to eq(3)
   end
+
 end
