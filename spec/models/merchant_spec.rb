@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
+
   describe 'validations' do
-  # it { should validate_presence_of :name }
+    it { should validate_presence_of :name }
   end
 
   describe 'relationships' do
-    # it { should have_many :order_items }
-    # it { should have_many(:orders).through(:order_items) }
-    # it { should belong_to :user }
+    it { should have_many :items }
+    it { should have_many :invoices }
+    it { should have_many(:customers).through(:invoices) }
   end
 
   describe 'class methods' do
@@ -27,8 +27,7 @@ RSpec.describe Merchant, type: :model do
       @i6 = create(:item, merchant: @m4)
     end
 
-    it '.top_merchants_by_total_revenue(limit)' do
-      binding.pry
+    xit '.top_merchants_by_total_revenue(limit)' do
       actual = Merchant.top_merchants_by_total_revenue(3)
       expect(actual).to eq()
     end
