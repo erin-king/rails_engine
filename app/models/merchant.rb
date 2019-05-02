@@ -6,7 +6,7 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :customers, through: :invoices
 
-  def self.top_merchants_by_total_revenue(limit)
+  def self.top_merchants_by_total_revenue(limit = 3)
     select('merchants.name, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
     .joins(items: :invoice_items)
     .group(:id)
