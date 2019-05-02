@@ -1,6 +1,50 @@
 require 'rails_helper'
 
 describe "Merchants API" do
+  it "returns all merchants" do
+
+    m1 = create(:merchant)
+    m2 = create(:merchant)
+    m3 = create(:merchant)
+
+    get "/api/v1/merchants"
+
+    expect(response).to be_successful
+
+    merchants = JSON.parse(response.body)
+    total_merchants = merchants["data"]
+
+    total_merchants.each do |merchant|
+      expect(merchant).to have_key("id")
+      expect(merchant).to have_key("type")
+      expect(merchant).to have_key("attributes")
+      expect(merchant).to_not have_key("created_at")
+    end
+
+    one_merchant = total_merchants.first["attributes"]["name"]
+
+    expect(one_merchant).to eq(m1.name)
+    expect(total_merchants.count).to eq(3)
+  end
+
+  it "returns one merchant by id" do
+    m1 = create(:merchant)
+
+    get "/api/v1/merchants/#{m1.id}"
+
+    expect(response).to be_successful
+
+    merchants = JSON.parse(response.body)
+    merchant = merchants["data"]
+
+    expect(merchant).to have_key("id")
+    expect(merchant).to have_key("type")
+    expect(merchant).to have_key("attributes")
+    expect(merchant).to_not have_key("created_at")
+
+    expect(merchants.count).to eq(1)
+  end
+
   it "returns a collection of items associated with that merchant" do
 
     m1 = create(:merchant)
@@ -34,7 +78,7 @@ describe "Merchants API" do
     expect(invoices.count).to eq(3)
   end
 
-  it "returns the top x merchants ranked by total revenue" do
+  xit "returns the top x merchants ranked by total revenue" do
     get "/api/v1/merchants/most_revenue?quantity=x"
   end
 end
