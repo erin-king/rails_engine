@@ -46,7 +46,6 @@ describe "Merchants API" do
   end
 
   it "returns a collection of items associated with that merchant" do
-
     m1 = create(:merchant)
     i1 = create(:item, merchant_id: m1.id)
     i2 = create(:item, merchant_id: m1.id)
@@ -62,7 +61,6 @@ describe "Merchants API" do
   end
 
   it "returns a collection of invoices associated with a merchant from their known orders" do
-
     m1 = create(:merchant)
     c1 = create(:customer)
     i1 = create(:invoice, merchant_id: m1.id, customer_id: c1.id)
