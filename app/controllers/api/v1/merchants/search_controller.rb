@@ -1,19 +1,17 @@
 class Api::V1::Merchants::SearchController < ApplicationController
 
   def index
-
+    render json: MerchantSerializer.new(Merchant.where(merchant_params))
   end
 
   def show
-    render json: MerchantSerializer.new(Merchant.find(params[:id]))
+    render json: MerchantSerializer.new(Merchant.find_by(merchant_params))
+  end
 
+  private
+
+  def merchant_params
+    params.permit(:id, :name, :created_at, :updated_at)
   end
 
 end
-
-# description
-# id	search based on the primary key
-# name	search based on the name attribute
-# created_at	search based on created_at timestamp
-# updated_at	search based on updated_at timestamp
-#

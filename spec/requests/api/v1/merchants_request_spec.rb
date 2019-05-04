@@ -45,6 +45,44 @@ describe "Merchants API" do
     expect(merchants.count).to eq(1)
   end
 
+  it "returns one merchant by find parameters" do
+    m1 = create(:merchant)
+    m2 = create(:merchant)
+
+    get "/api/v1/merchants/find?id=#{m1.id}"
+
+    expect(response).to be_successful
+    merchants = JSON.parse(response.body)
+    merchant = merchants["data"]
+    expect(merchant["id"]).to eq("#{m1.id}")
+    expect(merchant["id"]).to_not eq("#{m2.id}")
+
+    get "/api/v1/merchants/find?name=#{m1.name}"
+
+    expect(response).to be_successful
+    merchants = JSON.parse(response.body)
+    merchant = merchants["data"]
+
+    expect(merchant["attributes"]["name"]).to eq("#{m1.name}")
+    expect(merchant["attributes"]["name"]).to_not eq("#{m2.name}")
+
+  end
+
+  it "returns an array of merchants by find_all parameters" do
+    m1 = create(:merchant)
+    m2 = create(:merchant)
+
+    get "/api/v1/merchants/find?id=#{m1.id}"
+
+    expect(response).to be_successful
+    merchants = JSON.parse(response.body)
+    merchant = merchants["data"]
+    expect(merchant["id"]).to eq("#{m1.id}")
+    expect(merchant["id"]).to_not eq("#{m2.id}")
+
+    expect(merchants.count).to eq(1)
+  end
+
   it "returns a collection of items associated with that merchant" do
     m1 = create(:merchant)
     i1 = create(:item, merchant_id: m1.id)
@@ -76,7 +114,7 @@ describe "Merchants API" do
     expect(invoices.count).to eq(3)
   end
 
-  it "returns the top x merchants ranked by most revenue" do
+  xit "returns the top x merchants ranked by most revenue" do
     get "/api/v1/merchants/most_revenue?quantity=3"
 
   end
