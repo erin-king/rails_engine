@@ -76,7 +76,8 @@ describe "Merchants API" do
     expect(invoices.count).to eq(3)
   end
 
-  xit "returns the top x merchants ranked by total revenue" do
-    get "/api/v1/merchants/most_revenue?quantity=x"
+  it "returns the top x merchants ranked by most revenue" do
+    get "/api/v1/merchants/most_revenue?quantity=3"
+
   end
 end

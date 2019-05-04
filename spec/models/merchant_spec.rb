@@ -43,8 +43,8 @@ RSpec.describe Merchant, type: :model do
       @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice6, quantity: 1, unit_price: 10)
     end
 
-    it '.top_merchants_by_total_revenue(limit)' do
-      actual = Merchant.top_merchants_by_total_revenue(3)
+    it '.most_revenue(limit)' do
+      actual = Merchant.most_revenue(3)
       expect(actual).to eq([@m2, @m3, @m4])
     end
   end
