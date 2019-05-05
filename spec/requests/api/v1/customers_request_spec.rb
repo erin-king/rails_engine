@@ -34,6 +34,25 @@ RSpec.describe 'Customers API' do
       expect(customer["data"]["attributes"]["id"]).to eq(id)
     end
   end
+
+  describe 'Customer Relationship Endpoints' do
+    it 'returns a collection of invoices associated with that customer' do
+      c1 = create(:customer)
+      m1 = create(:merchant)
+      i1 = create(:invoice, customer_id: c1.id, merchant_id: m1.id)
+      i2 = create(:invoice, customer_id: c1.id, merchant_id: m1.id)
+      i3 = create(:invoice, customer_id: c1.id, merchant_id: m1.id)
+
+      get "/api/v1/customers/#{c1.id}/invoices"
+
+      expect(response).to be_successful
+
+      invoices = JSON.parse(response.body)
+
+      expect(invoices.count).to eq(3)
+    end
+  end
+
   describe 'Customer Finders' do
     it 'returns one customer by find parameters' do
       c1 = create(:customer)
