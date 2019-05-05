@@ -14,6 +14,13 @@ Rails.application.routes.draw do
         get '/invoices', to: 'merchants/invoices#index', as: :invoices
       end
 
+      # namespace :customers do
+      # end
+
+      resources :customers, only: [:index, :show]
+
+
+
     end
   end
 end
