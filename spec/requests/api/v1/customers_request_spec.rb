@@ -48,5 +48,21 @@ RSpec.describe 'Customers API' do
       expect(customer["attributes"]["first_name"]).to eq(c1.first_name)
       expect(customer["attributes"]["first_name"]).to_not eq(c2.first_name)
     end
+
+    it 'returns and array of customers by find_all parameters' do
+      c1 = create(:customer, first_name: "Ben")
+      c2 = create(:customer, first_name: "Jazzy")
+      c3 = create(:customer, first_name: "Ben")
+
+      get "/api/v1/customers/find_all?first_name=Ben"
+
+      expect(response).to be_successful
+      customers = JSON.parse(response.body)
+      customer = customers["data"]
+
+      expect(customer[0]["attributes"]["first_name"]).to eq(c1.first_name)
+      expect(customer[1]["attributes"]["first_name"]).to eq(c3.first_name)
+      expect(customer[2]).to eq(nil)
+    end
   end
 end
