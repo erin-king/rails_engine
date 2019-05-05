@@ -34,4 +34,19 @@ RSpec.describe 'Customers API' do
       expect(customer["data"]["attributes"]["id"]).to eq(id)
     end
   end
+  describe 'Customer Finders' do
+    it 'returns one customer by find parameters' do
+      c1 = create(:customer)
+      c2 = create(:customer)
+
+      get "/api/v1/customers/find?first_name=#{c1.first_name}"
+
+      expect(response).to be_successful
+      customers = JSON.parse(response.body)
+      customer = customers["data"]
+
+      expect(customer["attributes"]["first_name"]).to eq(c1.first_name)
+      expect(customer["attributes"]["first_name"]).to_not eq(c2.first_name)
+    end
+  end
 end
