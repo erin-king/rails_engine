@@ -37,15 +37,18 @@ RSpec.describe Merchant, type: :model do
       @invoice5 = create(:invoice, merchant: @m3, customer: @c5)
       @invoice6 = create(:invoice, merchant: @m4, customer: @c5)
       @invoice_item1 = create(:invoice_item, item: @item1, invoice: @invoice1, quantity: 1, unit_price: 10)
-      @invoice_item2 = create(:invoice_item, item: @item2, invoice: @invoice3, quantity: 1, unit_price: 10)
-      @invoice_item3 = create(:invoice_item, item: @item4, invoice: @invoice4, quantity: 1, unit_price: 10)
-      @invoice_item5 = create(:invoice_item, item: @item5, invoice: @invoice5, quantity: 2, unit_price: 10)
-      @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice6, quantity: 1, unit_price: 10)
+      @invoice_item2 = create(:invoice_item, item: @item2, invoice: @invoice3, quantity: 5, unit_price: 10)
+      @invoice_item3 = create(:invoice_item, item: @item4, invoice: @invoice4, quantity: 5, unit_price: 10)
+      @invoice_item5 = create(:invoice_item, item: @item5, invoice: @invoice5, quantity: 2, unit_price: 1)
+      @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice6, quantity: 1, unit_price: 5)
     end
 
     it '.most_revenue(limit)' do
       actual = Merchant.most_revenue(3)
-      expect(actual).to eq([@m2, @m3, @m4])
+
+      expect(actual[0]["id"]).to eq(@m2.id)
+      expect(actual[1]["id"]).to eq(@m1.id)
+      expect(actual[2]["id"]).to eq(@m4.id)
     end
   end
 end

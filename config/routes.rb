@@ -19,10 +19,9 @@ Rails.application.routes.draw do
         get '/find_all', to: 'search#index', as: :find_all
       end
 
-      resources :customers, only: [:index, :show]
-
-
-
+      resources :customers, only: [:index, :show] do
+        get 'invoices', to: 'customers/invoices#index', as: :invoices
+      end
     end
   end
 end

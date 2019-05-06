@@ -152,10 +152,10 @@ describe "Merchants API" do
       @invoice5 = create(:invoice, merchant: @m3, customer: @c5)
       @invoice6 = create(:invoice, merchant: @m4, customer: @c5)
       @invoice_item1 = create(:invoice_item, item: @item1, invoice: @invoice1, quantity: 1, unit_price: 10)
-      @invoice_item2 = create(:invoice_item, item: @item2, invoice: @invoice3, quantity: 1, unit_price: 10)
-      @invoice_item3 = create(:invoice_item, item: @item4, invoice: @invoice4, quantity: 1, unit_price: 10)
-      @invoice_item5 = create(:invoice_item, item: @item5, invoice: @invoice5, quantity: 2, unit_price: 10)
-      @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice6, quantity: 1, unit_price: 10)
+      @invoice_item2 = create(:invoice_item, item: @item2, invoice: @invoice3, quantity: 5, unit_price: 10)
+      @invoice_item3 = create(:invoice_item, item: @item4, invoice: @invoice4, quantity: 5, unit_price: 10)
+      @invoice_item5 = create(:invoice_item, item: @item5, invoice: @invoice5, quantity: 2, unit_price: 1)
+      @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice6, quantity: 1, unit_price: 5)
     end
 
     it "returns the top x merchants ranked by most revenue" do
@@ -166,7 +166,7 @@ describe "Merchants API" do
 
       expect(response).to be_successful
       expect(merchants[0]["attributes"]["id"]).to eq(@m2.id)
-      expect(merchants[1]["attributes"]["id"]).to eq(@m3.id)
+      expect(merchants[1]["attributes"]["id"]).to eq(@m1.id)
       expect(merchants.length).to eq(2)
     end
   end
