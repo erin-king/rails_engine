@@ -22,7 +22,6 @@ Rails.application.routes.draw do
       resources :customers, only: [:index, :show] do
         get 'invoices', to: 'customers/invoices#index', as: :invoices
       end
-
     end
   end
 end
